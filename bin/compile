@@ -115,7 +115,8 @@ done
 
 # drop ivy cache from slug
 if [ -d $SBT_USER_HOME/.ivy2 ] ; then
-  echo "-----> Dropping ivy cache from the slug" 
-  rm -rf $SBT_USER_HOME/.ivy2 
+  echo "-----> Dropping (parts of) ivy cache from the slug" 
+  rm -rf $SBT_USER_HOME/.ivy2/cache/org.scala-lang/scala-compiler 
+  rm -rf $SBT_USER_HOME/.ivy2/cache/org.specs2
 fi
 

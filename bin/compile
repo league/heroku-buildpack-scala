@@ -115,8 +115,12 @@ done
 
 # drop ivy cache from slug
 if [ -d $SBT_USER_HOME/.ivy2 ] ; then
-  echo "-----> Dropping (parts of) ivy cache from the slug" 
-  rm -rf $SBT_USER_HOME/.ivy2/cache/org.scala-lang/scala-compiler 
-  rm -rf $SBT_USER_HOME/.ivy2/cache/org.specs2
+  echo "-----> Extracting classpath from target/start"
+  grep "exec java" $BUILD_DIR/target/start |\
+    sed 's/^.*-cp//' | cut -f2 -d'"' |\
+    sed 's/:/\n/g' > $BUILD_DIR/target/classpath
+  echo "-----> Examining jars in ivy cache"
+  find $SBT_USER_HOME/.ivy2/cache -name '*.jar'
+  echo "-----> Considering dropping all but these:"
+  cat $BUILD_DIR/target/classpath
 fi
-

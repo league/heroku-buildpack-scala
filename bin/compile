@@ -114,7 +114,7 @@ for DIR in $CACHED_DIRS ; do
 done
 
 # drop ivy cache from slug
-if [ -d $SBT_USER_HOME/.ivy2 ] ; then
+if [ -d $SBT_USER_HOME/.ivy2/cache -a -r $BUILD_DIR/target/start ] ; then
   echo "-----> Extracting classpath from target/start"
   grep "exec java" $BUILD_DIR/target/start |\
     sed 's/^.*-cp//' | cut -f2 -d'"' |\
